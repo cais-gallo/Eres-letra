@@ -7,7 +7,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 	<link rel="stylesheet" href="./style.css">
 
-
     <style>
 body {
   display: flex;
@@ -20,20 +19,22 @@ body {
   cursor: pointer;
 }
 
-		.heart {
+.heart {
   flex-shrink: 0;
-  margin-bottom: 0.8rem;
+  margin-top: -0.6rem;
+  margin-bottom: 0.3rem;
 }
 
-        audio {
-            margin-bottom: 25px;
-        }
 
-        #letra {
+audio {
+  margin-bottom: 25px;
+}
+
+#letra {
   white-space: pre-line;
   width: 100%;
   max-width: 90vw;
-  min-height: 4.5em; /* mucho menor */
+  min-height: 3em;
   opacity: 0;
   transition: opacity 0.4s ease;
 }
@@ -41,6 +42,11 @@ body {
 </head>
 
 <body>
+
+    <!-- LETRA -->
+    <div id="letra"></div>
+
+	<!-- CORAZÓN -->
 	<svg class="heart" viewBox="0 0 32 32" width="32px" height="32px" role="img"
 		aria-label="Heart beating with red lines running down the outside and veins inside">
 		<symbol id="heart-border">
@@ -114,108 +120,84 @@ body {
 			</g>
 		</g>
 	</svg>
-	
-	  <!-- AUDIO -->
-<audio id="audio">
-  <source src="eres.mp3" type="audio/mpeg">
-</audio>
 
-
-    <!-- LETRA -->
-    <div id="letra"></div>
+	<!-- AUDIO -->
+	<audio id="audio">
+		<source src="eres.mp3" type="audio/mpeg">
+	</audio>
 
     <script>
         const audio = document.getElementById("audio");
         const letra = document.getElementById("letra");
 
-        /*
-         Ajuste fino:
-         La letra comienza en el segundo 16
-        */
-		const sync = [
-  { time: 0, text: "Yaz… 💖\nmi amor ✨" },
-  { time: 3, text: "Quiero decirte 💖\nalgo ✨" },
-  { time: 5, text: "❤️Sabes que eres💖\ntodo para mi... ❤️" },
- 
+        const sync = [
+          { time: 0, text: "Yaz… 💖\nmi amor ✨" },
+          { time: 3, text: "Quiero decirte 💖\nalgo ✨" },
+          { time: 5, text: "❤️Sabes que eres💖\ntodo para mi... ❤️" },
+          { time: 16, text: "La misma conciencia 🌙\n ❤️" },
+          { time: 20, text: "hace que 💫" },
+          { time: 22, text: "te encuentre 💞" },
+          { time: 24, text: " 🕊️\nY te va soltando más ✨" },
+          { time: 28, text: "para ver 👀\nlo que te dicen\nmis besos 💋💋" },
+          { time: 36, text: "oh… oh… 💓" },
+          { time: 40, text: "oh… oh… 💓" },
+          { time: 44, text: "oh… oh… oh…💓" },
+          { time: 48, text: "Eres ❤️‍🔥" },
+          { time: 50, text: "lo más lindo 🌹\nde mi vida ✨" },
+          { time: 54, text: "si tú 💭\nsi tú no vuelves 🥺" },
+          { time: 58, text: "te extrañaré 😔\ntoda la vida.... 💔" },
+          { time: 62, text: "mi vida 💖\nte extraña 🫶" },
+          { time: 65, text: "💖" },
+          { time: 80, text: "La misma conciencia 🌙\n ❤️" },
+          { time: 84, text: "Viaja con...💫" },
+          { time: 86, text: "mi karma 💞" },
+          { time: 89, text: " 🕊️\nY me voy soltando más ✨" },
+          { time: 92, text: "para ver 👀\nlo que me dicen\ntus besos 💋💋" },
+          { time: 100, text: "woh… oh… oh… 💓" },
+          { time: 104, text: "oh… oh… 💓" },
+          { time: 108, text: "oh… oh… oh…💓" },
+          { time: 112, text: "Eres ❤️‍🔥" },
+          { time: 115, text: "lo más lindo 🌹\nde mi vida ✨" },
+          { time: 118, text: "si tú 💭\nsi tú no vuelves 🥺" },
+          { time: 122, text: "te extrañaré 😔\ntoda la vida.... 💔" },
+          { time: 126, text: "mi vida 💖\nte extraña 🫶" },
+          { time: 128, text: "Eres ❤️‍🔥" },
+          { time: 130, text: "lo más lindo 🌹\nde mi vida ✨" },
+          { time: 134, text: "si tú 💭\nsi tú... no vuelves 🥺" },
+          { time: 139, text: "te extrañaré 😔\ntoda la vida.... 💔" },
+          { time: 142, text: "mi vida 💖\nte extraña 🫶" },
+          { time: 145, text: "🎵" }
+        ];
 
-  { time: 16, text: "La misma conciencia 🌙\n ❤️" },
-  { time: 20, text: "hace que 💫" },
-  { time: 22, text: "te encuentre 💞" },
-  { time: 24, text: " 🕊️\nY te va soltando más ✨" },
-  { time: 28, text: "para ver 👀\nlo que te dicen\nmis besos 💋💋" },
+        let current = 0;
+        let started = false;
 
-  { time: 36, text: "oh… oh… 💓" },
-  { time: 40, text: "oh… oh… 💓" },
-  { time: 44, text: "oh… oh… oh…💓" },
+        audio.addEventListener("timeupdate", () => {
+          if (
+            started &&
+            current < sync.length - 1 &&
+            audio.currentTime >= sync[current + 1].time
+          ) {
+            current++;
+            letra.style.opacity = 0;
+            setTimeout(() => {
+              letra.textContent = sync[current].text;
+              letra.style.opacity = 1;
+            }, 200);
+          }
+        });
 
-  { time: 48, text: "Eres ❤️‍🔥" },
-  { time: 50, text: "lo más lindo 🌹\nde mi vida ✨" },
-  { time: 54, text: "si tú 💭\nsi tú no vuelves 🥺" },
-  { time: 58, text: "te extrañaré 😔\ntoda la vida.... 💔" },
-  { time: 62, text: "mi vida 💖\nte extraña 🫶" },
-  { time: 65, text: "💖" },
-  
-  { time: 80, text: "La misma conciencia 🌙\n ❤️" },
-  { time: 84, text: "Viaja con...💫" },
-  { time: 86, text: "mi karma 💞" },
-  { time: 89, text: " 🕊️\nY me voy soltando más ✨" },
-  { time: 92, text: "para ver 👀\nlo que me dicen\ntus besos 💋💋" },
-  
-  { time: 100, text: "woh… oh… oh… 💓" },
-  { time: 104, text: "oh… oh… 💓" },
-  { time: 108, text: "oh… oh… oh…💓" },
-  
-  { time: 112, text: "Eres ❤️‍🔥" },
-  { time: 115, text: "lo más lindo 🌹\nde mi vida ✨" },
-  { time: 118, text: "si tú 💭\nsi tú no vuelves 🥺" },
-  { time: 122, text: "te extrañaré 😔\ntoda la vida.... 💔" },
-  { time: 126, text: "mi vida 💖\nte extraña 🫶" },
-  { time: 128, text: "Eres ❤️‍🔥" },
-  { time: 130, text: "lo más lindo 🌹\nde mi vida ✨" },
-  { time: 134, text: "si tú 💭\nsi tú... no vuelves 🥺" },
-  { time: 139, text: "te extrañaré 😔\ntoda la vida.... 💔" },
-  { time: 142, text: "mi vida 💖\nte extraña 🫶" },
-  { time: 145, text: "🎵" },
-
-
-];
-
-
- let current = 0;
-    let started = false;
-
-    // Sincronización
-    audio.addEventListener("timeupdate", () => {
-      if (
-        started &&
-        current < sync.length - 1 &&
-        audio.currentTime >= sync[current + 1].time
-      ) {
-        current++;
-        letra.style.opacity = 0;
-
-        setTimeout(() => {
-          letra.textContent = sync[current].text;
-          letra.style.opacity = 1;
-        }, 200);
-      }
-    });
-
-    // Iniciar con clic en cualquier parte
-    document.body.addEventListener("click", () => {
-      if (!started) {
-        started = true;
-        current = 0;
-        audio.currentTime = 0;
-
-        letra.textContent = sync[0].text;
-        letra.style.opacity = 1;
-
-        audio.play();
-      }
-    });
-  </script>
+        document.body.addEventListener("click", () => {
+          if (!started) {
+            started = true;
+            current = 0;
+            audio.currentTime = 0;
+            letra.textContent = sync[0].text;
+            letra.style.opacity = 1;
+            audio.play();
+          }
+        });
+    </script>
 
 </body>
-
 </html>
