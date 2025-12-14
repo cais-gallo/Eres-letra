@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Eres- Yaz</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+	<link rel="stylesheet" href="./style.css">
+
+
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+        }
+
+        audio {
+            margin-bottom: 25px;
+        }
+
+        #letra {
+            font-size: 26px;
+            letter-spacing: 3px;
+            white-space: pre-line;
+            min-height: 120px;
+            transition: opacity 0.4s ease;
+        }
+    </style>
+</head>
+
+<body>
+	<svg class="heart" viewBox="0 0 32 32" width="32px" height="32px" role="img"
+		aria-label="Heart beating with red lines running down the outside and veins inside">
+		<symbol id="heart-border">
+			<path
+				d="M 15.9 7.75 C 15.9 7.75 11.639 2.996 6.785 5.85 C 4.652 7.105 2.992 9.667 3 12.5 C 3.017 18.716 7.878 22.041 9.5 23.547 C 14.398 27.547 16.088 27.5 16 27.5"
+				stroke-dasharray="39 39" />
+		</symbol>
+		<symbol id="heart-vein1">
+			<path
+				d="M 11.095 7.744 C 11.095 7.744 9.119 10.295 9.5 12.5 C 9.835 14.441 11.089 14.417 12.929 15.896 C 14.638 17.269 14.431 19.507 14.431 19.507"
+				stroke-dasharray="14.1 39" />
+		</symbol>
+		<symbol id="heart-vein2">
+			<path d="M 9.5 12.5 C 9.5 12.5 9.667 13.781 9.209 14.895 C 8.796 15.901 7.872 16.561 7.872 16.561"
+				stroke-dasharray="4.6 39" />
+		</symbol>
+		<symbol id="heart-vein3">
+			<path d="M 10.2 14 C 12.133 16.433 12.095 18.427 12 19.4 C 11.829 21.153 10.4 22.2 10.4 22.2"
+				stroke-dasharray="9.1 39" />
+		</symbol>
+		<symbol id="heart-vein4">
+			<path d="M 12 19.3 C 12 19.3 12 20.572 12.551 21.726 C 13.012 22.692 13.535 22.974 13.535 22.974"
+				stroke-dasharray="4.1 39" />
+		</symbol>
+		<g fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1">
+			<g opacity="0.25">
+				<g>
+					<use class="heart__border heart__border--pulse" href="#heart-border" />
+					<g class="heart__vein-group">
+						<use class="heart__vein heart__vein--pulse1" href="#heart-vein1" />
+						<use class="heart__vein heart__vein--pulse2" href="#heart-vein2" />
+						<use class="heart__vein heart__vein--pulse3" href="#heart-vein3" />
+						<use class="heart__vein heart__vein--pulse4" href="#heart-vein4" />
+					</g>
+				</g>
+				<g transform="scale(-1,1)" style="transform-origin:16px 16px">
+					<use class="heart__border heart__border--pulse" href="#heart-border" />
+					<g class="heart__vein-group">
+						<use class="heart__vein heart__vein--pulse1" href="#heart-vein1" />
+						<use class="heart__vein heart__vein--pulse2" href="#heart-vein2" />
+						<use class="heart__vein heart__vein--pulse3" href="#heart-vein3" />
+						<use class="heart__vein heart__vein--pulse4" href="#heart-vein4" />
+					</g>
+				</g>
+			</g>
+			<g>
+				<g class="heart__border heart__border--fade">
+					<g>
+						<use class="heart__border heart__border--offset-pulse" href="#heart-border" />
+					</g>
+					<g transform="scale(-1,1)" style="transform-origin:16px 16px">
+						<use class="heart__border heart__border--offset-pulse" href="#heart-border" />
+					</g>
+				</g>
+				<g>
+					<g class="heart__vein-group">
+						<use class="heart__vein heart__vein--all1" href="#heart-vein1" />
+						<use class="heart__vein heart__vein--all2" href="#heart-vein2" />
+						<use class="heart__vein heart__vein--all3" href="#heart-vein3" />
+						<use class="heart__vein heart__vein--all4" href="#heart-vein4" />
+					</g>
+				</g>
+				<g transform="scale(-1,1)" style="transform-origin:16px 16px">
+					<g class="heart__vein-group">
+						<use class="heart__vein heart__vein--all1" href="#heart-vein1" />
+						<use class="heart__vein heart__vein--all2" href="#heart-vein2" />
+						<use class="heart__vein heart__vein--all3" href="#heart-vein3" />
+						<use class="heart__vein heart__vein--all4" href="#heart-vein4" />
+					</g>
+				</g>
+			</g>
+		</g>
+	</svg>
+	
+	  <!-- AUDIO -->
+<audio id="audio">
+  <source src="eres.mp3" type="audio/mpeg">
+</audio>
+
+
+    <!-- LETRA -->
+    <div id="letra"></div>
+
+    <script>
+        const audio = document.getElementById("audio");
+        const letra = document.getElementById("letra");
+
+        /*
+         Ajuste fino:
+         La letra comienza en el segundo 16
+        */
+		const sync = [
+  { time: 0, text: "Yaz… 💖\nmi amor ✨" },
+  { time: 3, text: "Quiero decirte 💖\nalgo ✨" },
+  { time: 5, text: "❤️Sabes que eres💖\ntodo para mi... ❤️" },
+ 
+
+  { time: 16, text: "La misma conciencia 🌙\n ❤️" },
+  { time: 20, text: "hace que 💫" },
+  { time: 22, text: "te encuentre 💞" },
+  { time: 24, text: " 🕊️\nY te va soltando más ✨" },
+  { time: 28, text: "para ver 👀\nlo que te dicen\nmis besos 💋💋" },
+
+  { time: 36, text: "oh… oh… 💓" },
+  { time: 40, text: "oh… oh… 💓" },
+  { time: 44, text: "oh… oh… oh…💓" },
+
+  { time: 48, text: "Eres ❤️‍🔥" },
+  { time: 50, text: "lo más lindo 🌹\nde mi vida ✨" },
+  { time: 54, text: "si tú 💭\nsi tú no vuelves 🥺" },
+  { time: 58, text: "te extrañaré 😔\ntoda la vida.... 💔" },
+  { time: 62, text: "mi vida 💖\nte extraña 🫶" },
+  { time: 65, text: "💖" },
+  
+  { time: 80, text: "La misma conciencia 🌙\n ❤️" },
+  { time: 84, text: "Viaja con...💫" },
+  { time: 86, text: "mi karma 💞" },
+  { time: 89, text: " 🕊️\nY me voy soltando más ✨" },
+  { time: 92, text: "para ver 👀\nlo que me dicen\ntus besos 💋💋" },
+  
+  { time: 100, text: "woh… oh… oh… 💓" },
+  { time: 104, text: "oh… oh… 💓" },
+  { time: 108, text: "oh… oh… oh…💓" },
+  
+  { time: 112, text: "Eres ❤️‍🔥" },
+  { time: 115, text: "lo más lindo 🌹\nde mi vida ✨" },
+  { time: 118, text: "si tú 💭\nsi tú no vuelves 🥺" },
+  { time: 122, text: "te extrañaré 😔\ntoda la vida.... 💔" },
+  { time: 126, text: "mi vida 💖\nte extraña 🫶" },
+  { time: 128, text: "Eres ❤️‍🔥" },
+  { time: 130, text: "lo más lindo 🌹\nde mi vida ✨" },
+  { time: 134, text: "si tú 💭\nsi tú... no vuelves 🥺" },
+  { time: 139, text: "te extrañaré 😔\ntoda la vida.... 💔" },
+  { time: 142, text: "mi vida 💖\nte extraña 🫶" },
+  { time: 145, text: "🎵" },
+
+
+];
+
+
+ let current = 0;
+    let started = false;
+
+    // Sincronización
+    audio.addEventListener("timeupdate", () => {
+      if (
+        started &&
+        current < sync.length - 1 &&
+        audio.currentTime >= sync[current + 1].time
+      ) {
+        current++;
+        letra.style.opacity = 0;
+
+        setTimeout(() => {
+          letra.textContent = sync[current].text;
+          letra.style.opacity = 1;
+        }, 200);
+      }
+    });
+
+    // Iniciar con clic en cualquier parte
+    document.body.addEventListener("click", () => {
+      if (!started) {
+        started = true;
+        current = 0;
+        audio.currentTime = 0;
+
+        letra.textContent = sync[0].text;
+        letra.style.opacity = 1;
+
+        audio.play();
+      }
+    });
+  </script>
+
+</body>
+
+</html>

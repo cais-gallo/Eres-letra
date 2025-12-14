@@ -1,0 +1,220 @@
+/* =========================
+   RESET GENERAL
+========================= */
+* {
+  border: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* =========================
+   VARIABLES GLOBALES
+========================= */
+:root {
+  --hue: 3;
+  --primary1: hsl(var(--hue), 90%, 95%);
+  --primary2: hsl(var(--hue), 90%, 60%);
+  --primary3: hsl(var(--hue), 90%, 40%);
+  --primary4: hsl(var(--hue), 90%, 5%);
+  --trans-dur: 0.3s;
+
+  font-size: clamp(1rem, 0.95rem + 0.25vw, 1.25rem);
+}
+
+/* =========================
+   BODY
+========================= */
+body {
+  background-color: var(--primary1);
+  color: var(--primary4);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font: 1em/1.5 sans-serif;
+  height: 100vh;
+  overflow: hidden;
+  transition: background-color var(--trans-dur), color var(--trans-dur);
+}
+
+/* =========================
+   CORAZÓN
+========================= */
+.heart {
+  color: var(--primary3);
+  display: block;
+  margin: auto;
+  width: 12em;
+  height: auto;
+  transition: color var(--trans-dur);
+}
+
+.heart__border,
+.heart__vein,
+.heart__vein-group {
+  animation-duration: 1s;
+  animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
+  animation-iteration-count: infinite;
+}
+
+.heart__border {
+  transform-origin: 16px 16px;
+}
+
+.heart__border--fade {
+  animation-name: heart-border-fade;
+}
+
+.heart__border--offset-pulse {
+  animation-name: heart-border-offset, heart-border-pulse;
+}
+
+.heart__border--pulse {
+  animation-name: heart-border-pulse;
+}
+
+.heart__vein-group {
+  animation-name: heart-vein-group-pulse;
+  transform-origin: 9.5px 23.5px;
+}
+
+.heart__vein--all1,
+.heart__vein--pulse1 {
+  transform-origin: 9.5px 12.5px;
+}
+
+.heart__vein--all1 {
+  animation-name: heart-vein-fade1, heart-vein-offset1, heart-vein-pulse1;
+}
+
+.heart__vein--pulse1 {
+  animation-name: heart-vein-pulse1;
+}
+
+.heart__vein--all2,
+.heart__vein--pulse2 {
+  transform-origin: 9.5px 12.5px;
+}
+
+.heart__vein--all2 {
+  animation-name: heart-vein-fade2, heart-vein-offset2, heart-vein-pulse2;
+}
+
+.heart__vein--pulse2 {
+  animation-name: heart-vein-pulse2;
+}
+
+.heart__vein--all3,
+.heart__vein--pulse3 {
+  transform-origin: 10.2px 14px;
+}
+
+.heart__vein--all3 {
+  animation-name: heart-vein-fade3, heart-vein-offset3, heart-vein-pulse3;
+}
+
+.heart__vein--pulse3 {
+  animation-name: heart-vein-pulse3;
+}
+
+.heart__vein--all4,
+.heart__vein--pulse4 {
+  transform-origin: 12px 19.3px;
+}
+
+.heart__vein--all4 {
+  animation-name: heart-vein-fade4, heart-vein-offset4, heart-vein-pulse4;
+}
+
+.heart__vein--pulse4 {
+  animation-name: heart-vein-pulse4;
+}
+
+/* =========================
+   ANIMACIONES
+========================= */
+@keyframes heart-border-fade {
+  from, 98%, to { opacity: 0; }
+  5%, 93% { opacity: 1; }
+}
+
+@keyframes heart-border-offset {
+  from { stroke-dashoffset: 39; }
+  50% { stroke-dashoffset: 0; }
+  to { stroke-dashoffset: -39; }
+}
+
+@keyframes heart-border-pulse {
+  from, to {
+    animation-timing-function: cubic-bezier(0.32, 0, 0.67, 0);
+    transform: scale(1);
+  }
+  50% {
+    animation-timing-function: cubic-bezier(0.33, 1, 0.68, 1);
+    transform: scale(1.125);
+  }
+}
+
+@keyframes heart-vein-group-pulse {
+  from, to {
+    transform: translate(0, 0) rotate(0);
+  }
+  50% {
+    transform: translate(-2px, -0.5px) rotate(5deg);
+  }
+}
+
+/* =========================
+   LETRA SINCRONIZADA
+========================= */
+#letra {
+  font-family:
+    "Apple Color Emoji",
+    "Segoe UI Emoji",
+    "Noto Color Emoji",
+    "Poppins",
+    system-ui,
+    sans-serif;
+
+  font-size: clamp(2rem, 4.5vw, 3.2rem);
+  line-height: 1.35;
+  letter-spacing: 1.2px;
+  text-align: center;
+
+  color: var(--primary4);
+
+  text-shadow:
+    0 0 10px rgba(255, 80, 120, 0.35),
+    0 0 22px rgba(255, 60, 100, 0.25);
+
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+/* =========================
+   MODO OSCURO
+========================= */
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: var(--primary4);
+    color: var(--primary1);
+  }
+
+  .heart {
+    color: var(--primary2);
+  }
+
+  #letra {
+    color: var(--primary1);
+    text-shadow:
+      0 0 12px rgba(255, 120, 160, 0.55),
+      0 0 30px rgba(255, 80, 130, 0.35);
+  }
+}
+
+/* =========================
+   OCULTAR AUDIO
+========================= */
+audio {
+  display: none;
+}
