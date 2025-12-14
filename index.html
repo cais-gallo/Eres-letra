@@ -9,27 +9,34 @@
 
 
     <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            text-align: center;
-        }
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100svh; /* mejor que 100vh en móvil */
+  margin: 0;
+  text-align: center;
+  padding: 1rem;
+  cursor: pointer;
+}
+		.heart {
+  flex-shrink: 0;
+  margin-bottom: 0.8rem;
+}
 
         audio {
             margin-bottom: 25px;
         }
 
         #letra {
-            font-size: 26px;
-            letter-spacing: 3px;
-            white-space: pre-line;
-            min-height: 120px;
-            transition: opacity 0.4s ease;
-        }
+  white-space: pre-line;
+  width: 100%;
+  max-width: 90vw;
+  min-height: 4.5em; /* mucho menor */
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
     </style>
 </head>
 
